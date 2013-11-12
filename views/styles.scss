@@ -3,9 +3,11 @@ $black: #444;
 $white: #fff;
 $ull:   #9900FF;
 $pink:  #F9A7B0;
-$a: 0
-$b: 3
-$c: 6
+$par: #64fe2e;
+$impar: #df013a;
+$a: 0;
+$b: 3;
+$c: 6;
 $main-font: Helvetica, Arial, sans-serif;
 $message-font: 22px/1;
 
@@ -47,29 +49,29 @@ body       {
              }
              float: left; 
            }
-@for $i from 1 through 3 {
+@for $i from 1 through 3 {        /*para hacer que cambie los colores*/
   @if ( (($i+$a) % (2)) == 0 ){ 
-    #a#{$i}:hover {background-color:#64fe2e;}
+    #a#{$i}:hover {background-color:$par;}
   }
   @else {
-    #a#{$i}:hover {background-color:#df013a;}
+    #a#{$i}:hover {background-color:$impar;}
   }
 }
 
 @for $i from 1 through 3 {
   @if ( (($i+$b) % (2)) == 0 ){ 
-    #b#{$i}:hover {background-color:#64fe2e;}
+    #b#{$i}:hover {background-color:$par;}
   }
   @else {
-    #b#{$i}:hover {background-color:#df013a;}
+    #b#{$i}:hover {background-color:$impar;}
   }
 }
 @for $i from 1 through 3 {
   @if ( (($i+$c) % (2)) == 0 ){ 
-    #c#{$i}:hover {background-color:#64fe2e;}
+    #c#{$i}:hover {background-color:$par;}
   }
   @else {
-    #c#{$i}:hover {background-color:#df013a;}
+    #c#{$i}:hover {background-color:$impar;}
   }
 }
 @mixin game-piece($image) {
