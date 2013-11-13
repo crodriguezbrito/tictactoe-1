@@ -1,19 +1,23 @@
 require 'sinatra'
 require 'sass'
 require 'pp'
+require './usuarios.rb'
 
 settings.port = ENV['PORT'] || 4567
-enable :sessions
-#use Rack::Session::Pool, :expire_after => 2592000
-#set :session_secret, 'super secret'
+#enable :sessions
 
-#configure :development, :test do
-#  set :sessions, :domain => 'example.com'
-#end
+use Rack::Session::Pool, :expire_after => 2592000
+set :session_secret, 'super secret'
 
-#configure :production do
-#  set :sessions, :domain => 'herokuapp.com'
-#end
+configure :development do
+  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+end
+
+configure :production do
+  DataMapper.setup(:default, ENV['DATABASE_URL'])
+end
+
+DataMapper.auto_upgrade!
 
 module TicTacToe
   HUMAN = CIRCLE = "circle" # human
@@ -36,6 +40,10 @@ module TicTacToe
       @board[k] = BLANK
     end
     @board
+  end
+
+  def usuario          
+	session["usuario"]
   end
 
   def board
@@ -158,6 +166,13 @@ get '/humanwins' do
   pp session
   begin
     m = if human_wins? then
+        if (session["usuario"] != nil)
+          usu_juego = Usuario.first(:nombre => session["usuario"]) #referencia a clase usuario.rb
+          usu_juego.partidas_ganadas = usu_juego.partidas_ganadas +1 #numero de partidas ganadas
+          usu_juego.partidas_jugadas = usu_juego.partidas_jugadas +1 #numero de partidas jugadas
+          usu_juego.save
+          pp usu_juego
+          end
           'Human wins'
         else 
           redirect '/'
@@ -173,6 +188,13 @@ get '/computerwins' do
   pp session
   begin
     m = if computer_wins? then
+          if (session["usuario"] != nil)
+          usu_juego = Juego.first(:nombre => session["usuario"])
+          usu_juego.jugadas = usu_juego.jugadas + 1
+          usu_juego.save
+          pp usu_juego
+
+          end
           'Computer wins'
         else 
           redirect '/'
@@ -182,7 +204,6 @@ get '/computerwins' do
     redirect '/'
   end
 end
-
 not_found do
   puts "not found!!!!!!!!!!!"
   session["bs"] = inicializa()
