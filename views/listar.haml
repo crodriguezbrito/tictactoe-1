@@ -1,0 +1,17 @@
+.message 
+	%table
+		%tr
+			%th Tres en raya
+		%tr
+			%th Usuario
+			%th Ganadas
+			%th Jugadas
+			
+		- @usuario.sort_by {|k, v| v}.reverse.each do |usuario|
+			%tr
+				%td
+					#{usuario.username}
+				%td
+					#{usuario.partidas_ganadas}
+				%td        
+					#{usuario.partidas_jugadas}

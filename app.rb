@@ -204,6 +204,31 @@ get '/computerwins' do
     redirect '/'
   end
 end
+post '/' do
+  if params[:logout]
+    @usuario = nil
+    session["usuario"] = nil
+    session.clear
+  else
+    nick = params[:usuario]
+    nick = nick["username"]
+    u = Usuario.first(:username => "#{nick}")
+    if u == nil
+      juego_usuario = Usuario.create(params[:usuario])
+      juego_usuario.save
+      Aux = params[:usuario]
+      @usuario = Aux["username"]
+      session["usuario"] = @usuario
+    else
+      p "Ya existe un usuario con ese nickname!"
+      @usuario = nil
+      session["usuario"] = nil
+      session.clear
+    end
+  end
+    redirect '/'
+end
+
 not_found do
   puts "not found!!!!!!!!!!!"
   session["bs"] = inicializa()
