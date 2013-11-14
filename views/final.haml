@@ -1,13 +1,13 @@
 .cabecera
   -if (!usuario)
-    %form{:action=>"/",:method=>"post"}
+    %form{:action=>"/nombre",:method=>"post"}
       Introduce tu nombre y entra en nuestro Ranking! 
       %input{:type=>"text",:name=>"usuario[username]",:placeholder=>"Introduce tu nombre:"}
       %input{:type=>"hidden",:name=>"usuario[partidas_ganadas]",:value=>"0"}
       %input{:type=>"hidden",:name=>"usuario[partidas_jugadas]",:value=>"0"}
       %input{:type=>"submit",:value=>"enviar"}
   -else
-    %form{:action=>"/",:method=>"post"}
+    %form{:action=>"/nombre",:method=>"post"}
       Bienvenido, #{usuario}!
       %input{:type=>"hidden",:value=>"1",:name=>"logout"}
       %input{:type=>"submit",:value=>"logout"}

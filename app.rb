@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sass'
 require 'pp'
+require 'haml'
 require './usuario.rb'
 
 settings.port = ENV['PORT'] || 4567
@@ -161,50 +162,60 @@ get %r{^/([abc][123])?$} do |human|
   haml :game, :locals => { :b => board, :m => ''  }
 end
 
+
 get '/humanwins' do
-  puts "/humanwins session="
+  puts "/humanwins"
   pp session
   begin
     m = if human_wins? then
-        if (session["usuario"] != nil)
-          usu_juego = Usuario.first(:nombre => session["usuario"]) #referencia a clase usuario.rb
-          usu_juego.partidas_ganadas = usu_juego.partidas_ganadas +1 #numero de partidas ganadas
-          usu_juego.partidas_jugadas = usu_juego.partidas_jugadas +1 #numero de partidas jugadas
-          usu_juego.save
-          pp usu_juego
+          if (session["usuario"] != nil)
+            usu_juego = Usuario.first(:username => session["usuario"])
+            usu_juego.partidas_ganadas = usu_juego.partidas_ganadas + 1
+            contador = usu_juego.partidas_jugadas + 1
+            usu_juego.partidas_jugadas = contador
+            usu_juego.save
+            pp usu_juego
           end
           'Human wins'
-        else 
+        else
           redirect '/'
         end
     haml :final, :locals => { :b => board, :m => m }
   rescue
+    puts "lola!"
     redirect '/'
   end
 end
+
 
 get '/computerwins' do
-  puts "/computerwins"
-  pp session
-  begin
-    m = if computer_wins? then
-          if (session["usuario"] != nil)
-          usu_juego = Juego.first(:nombre => session["usuario"])
-          usu_juego.jugadas = usu_juego.jugadas + 1
-          usu_juego.save
-          pp usu_juego
-
-          end
-          'Computer wins'
-        else 
-          redirect '/'
-        end
-    haml :final, :locals => { :b => board, :m => m }
-  rescue
-    redirect '/'
-  end
+	puts "/computerwins"
+	pp session
+	begin
+		m = if computer_wins? then
+      puts "primer if"
+				if (session["usuario"] != nil)
+          puts "Seundo if"
+					usu_juego = Usuario.first(:username => session["usuario"])
+					usu_juego.partidas_jugadas = usu_juego.partidas_jugadas + 1
+					usu_juego.save
+					pp usu_juego
+          puts "entraxaqui"
+				end
+				puts "holahola"
+				'Computer wins'
+			else 
+				puts "pepin"
+				redirect '/'
+			end
+		  haml :final, :locals => { :b => board, :m => m }
+	rescue
+      puts"helllooooo"
+      redirect '/'
+	end
 end
-post '/' do
+
+post '/nombre' do
   if params[:logout]
     @usuario = nil
     session["usuario"] = nil
@@ -219,6 +230,7 @@ post '/' do
       Aux = params[:usuario]
       @usuario = Aux["username"]
       session["usuario"] = @usuario
+      puts "heyyyyyyy #{session["usuario"]}"
     else
       p "Ya existe un usuario con ese nickname!"
       @usuario = nil
