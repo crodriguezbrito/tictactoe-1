@@ -171,8 +171,7 @@ get '/humanwins' do
           if (session["usuario"] != nil)
             usu_juego = Usuario.first(:username => session["usuario"])
             usu_juego.partidas_ganadas = usu_juego.partidas_ganadas + 1
-            contador = usu_juego.partidas_jugadas + 1
-            usu_juego.partidas_jugadas = contador
+            usu_juego.partidas_jugadas = usu_juego.partidas_jugadas + 1
             usu_juego.save
             pp usu_juego
           end

@@ -1,7 +1,7 @@
 .cabecera
   -if (!usuario)
     %form{:action=>"/nombre",:method=>"post"}
-      Introduce tu nombre y entra en nuestro Ranking! 
+      Introduce tu nombre para formar parte del ranking Ranking! 
       %input{:type=>"text",:name=>"usuario[username]",:placeholder=>"Introduce tu nombre:"}
       %input{:type=>"hidden",:name=>"usuario[partidas_ganadas]",:value=>"0"}
       %input{:type=>"hidden",:name=>"usuario[partidas_jugadas]",:value=>"0"}
