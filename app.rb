@@ -11,7 +11,7 @@ use Rack::Session::Pool, :expire_after => 2592000
 set :session_secret, 'super secret'
 
 configure :development do
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/basedatos.db")
 end
 
 configure :production do
