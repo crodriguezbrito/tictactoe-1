@@ -181,7 +181,6 @@ get '/humanwins' do
         end
     haml :final, :locals => { :b => board, :m => m }
   rescue
-    puts "lola!"
     redirect '/'
   end
 end
@@ -199,17 +198,13 @@ get '/computerwins' do
 					usu_juego.partidas_jugadas = usu_juego.partidas_jugadas + 1
 					usu_juego.save
 					pp usu_juego
-          puts "entraxaqui"
 				end
-				puts "holahola"
 				'Computer wins'
 			else 
-				puts "pepin"
 				redirect '/'
 			end
 		  haml :final, :locals => { :b => board, :m => m }
 	rescue
-      puts"helllooooo"
       redirect '/'
 	end
 end
