@@ -1,4 +1,4 @@
-Building a Simple Sinatra Tic-Tac-Toe game Práctica7 SYTW
+Building a Simple Sinatra Tic-Tac-Toe game Práctica7 y Práctica9 SYTW
 ==================================================
 
 App currently contains:
@@ -15,7 +15,7 @@ App currently contains:
 1. Vista 
 ---------
 acceder a la dirección [Heroku](http://quiet-hamlet-8361.herokuapp.com/) desde cualquier navegador
-o desde local con rake 
+o desde local con rake e ir a localhost:4567
 
 
 2. Desarrollador

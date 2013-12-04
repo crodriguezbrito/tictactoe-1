@@ -1,4 +1,4 @@
-Building a Simple Sinatra Tic-Tac-Toe game 
+Building a Simple Sinatra Tic-Tac-Toe game Práctica7 y Práctica9 SYTW
 ==================================================
 
 App currently contains:
@@ -11,4 +11,17 @@ App currently contains:
 * public/ - this is the default folder for serving static assets
 * Procfile - this tells Heroku or Foreman how to run the application
 * Rakefile- installs the gems and run the server
+ 
+1. Vista 
+---------
+acceder a la dirección [Heroku](http://quiet-hamlet-8361.herokuapp.com/) desde cualquier navegador
+o desde local con rake e ir a localhost:4567
 
+
+2. Desarrollador
+----------------
+Carlos Rodríguez Brito
+
+alu0100543322@ull.edu.es
+
+ETSII. Universidad de La Laguna
