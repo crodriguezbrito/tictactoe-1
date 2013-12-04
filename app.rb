@@ -145,26 +145,22 @@ end
 
 get %r{^/([abc][123])?$} do |human|
   if human then
-    puts "You played: #{human}!"
-    puts "session: "
     pp session
     if legal_moves.include? human
       board[human] = TicTacToe::CIRCLE
       # computer = board.legal_moves.sample
       computer = smart_move
-      redirect to ('/humanwins') if human_wins?
-      redirect to('/') unless computer
+      return ('/humanwins') if human_wins?
+      return ('/') unless computer
       board[computer] = TicTacToe::CROSS
-      puts "I played: #{computer}!"
-      puts "Tablero:  #{board.inspect}"
-      redirect to ('/computerwins') if computer_wins?
+      return ('/computerwins') if computer_wins?
+      result = computer
     end
   else
     session["bs"] = inicializa()
-    puts "session = "
-    pp session
+    result = "illegal"
   end
-  haml :game, :locals => { :b => board, :m => ''  }
+  result
 end
 
 
