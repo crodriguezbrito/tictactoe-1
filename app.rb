@@ -151,7 +151,7 @@ get %r{^/([abc][123])?$} do |human|
       # computer = board.legal_moves.sample
       computer = smart_move
       return ('/humanwins') if human_wins?
-      return ('/') unless computer
+      return ('/tie') unless computer
       board[computer] = TicTacToe::CROSS
       return ('/computerwins') if computer_wins?
       result = computer
@@ -208,6 +208,24 @@ get '/computerwins' do
 	rescue
       redirect '/'
 	end
+end
+
+get '/tie' do
+  begin
+    m = if tie? then
+          if (session["usuario"] != nil)
+            un_usuario = Usuario.first(:username => session["usuario"])
+            un_usuario.partidas_jugadas = un_usuario.partidas_jugadas + 1
+            un_usuario.save
+          end
+          '¡EMPATE!'
+        else
+          redirect '/'
+        end
+    haml :final, :locals => { :b => board, :m => m }
+  rescue
+    redirect '/'
+  end
 end
 
 post '/nombre' do
