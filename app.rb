@@ -223,6 +223,7 @@ post '/nombre' do
       juego_usuario = Usuario.create(params[:usuario])
       juego_usuario.save
       Aux = params[:usuario]
+      pp params[:usuario]
       @usuario = Aux["username"]
       session["usuario"] = @usuario
       puts "heyyyyyyy #{session["usuario"]}"
