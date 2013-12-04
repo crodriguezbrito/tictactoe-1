@@ -11,7 +11,7 @@ use Rack::Session::Pool, :expire_after => 2592000
 set :session_secret, 'super secret'
 
 configure :development do
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/basedatos.db")
+  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
 end
 
 configure :production do
@@ -138,6 +138,11 @@ end
 
 helpers TicTacToe
 
+get '/' do
+  session["bs"] = inicializa()
+  haml :game, :locals =>{ :b =>board, :m => ''}
+end
+
 get %r{^/([abc][123])?$} do |human|
   if human then
     puts "You played: #{human}!"
@@ -226,7 +231,7 @@ post '/nombre' do
       session["usuario"] = @usuario
       puts "heyyyyyyy #{session["usuario"]}"
     else
-      p "Ya existe un usuario con ese nickname!"
+      'Ya existe un usuario con ese nickname!'
       @usuario = nil
       session["usuario"] = nil
       session.clear
